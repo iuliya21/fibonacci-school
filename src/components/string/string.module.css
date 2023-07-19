@@ -1,0 +1,25 @@
+.container {
+  display: flex;
+  max-width: 567px;
+  column-gap: 12px;
+  margin: 0 auto;
+}
+
+.wordContainer {
+  display: flex;
+  column-gap: 16px;
+  margin: 120px 0 0;
+  justify-content: center;
+}
+
+.input {
+  width: 377px;
+}
+
+.sorting {
+  color: pink;
+}
+
+.sorted {
+  color: green;
+}
