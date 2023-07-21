@@ -13,27 +13,34 @@ type CharInfo = {
 
 export const StringComponent: React.FC = () => {
   const [inputValue, setInputValue] = useState<string>("");
-  const [word, setWord] = useState<CharInfo[]>([]); // массив символов введенного слова
+  const [word, setWord] = useState<CharInfo[]>([]); // массив символов введенного слова, который отрисовывается в circle
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
   };
 
   const handleButtonClick = () => {
-    const newWord = inputValue
-      .split("")
-      .map((char) => ({ char, sorting: false, sorted: false }));
-    setWord(newWord);
-    let delay = 1000;
-    for(let i = 0; i <= newWord.length / 2; i++) {
-      const lastIndex = newWord.length - i - 1;
-      setTimeout(() => {
-        const temp = newWord[i];
-        newWord[i] = newWord[lastIndex];
-        newWord[lastIndex] = temp;
-      }, delay)
-    }
-  };
+    let wordInput = inputValue.split("").map((char) => ({ char, sorting: true, sorted: false }));
+    setWord(wordInput);
+
+    let currentIndex = 0;
+    const interval = setInterval(() => {
+      if (currentIndex <= wordInput.length/2) {
+        setWord((prevWord) => {
+          const newWord = [...prevWord];
+          newWord[currentIndex] = prevWord[prevWord.length - 1 - currentIndex];
+          newWord[newWord.length - 1 - currentIndex] = prevWord[currentIndex];
+          return newWord;
+        });
+        currentIndex++;
+      } else {
+        clearInterval(interval);
+        setWord((prevWord) =>
+        prevWord.map((charInfo) => ({ ...charInfo, sorting: false, sorted: true }))
+      );
+      }
+    }, 1000);
+  }
 
   return (
     <SolutionLayout title="Строка">
