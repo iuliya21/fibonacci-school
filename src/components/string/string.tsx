@@ -72,7 +72,7 @@ export const StringComponent: React.FC = () => {
           isLoader={loader}
         />
       </div>
-      <div className={styles.wordContainer}>
+      <div className={styles.containerWords}>
         {word.map(({ char, sorting, sorted }, index) => (
           <Circle key={index} letter={char} state={sorting ? ElementStates.Changing : sorted ? ElementStates.Modified : ElementStates.Default} />
         ))}

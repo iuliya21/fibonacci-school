@@ -5,7 +5,7 @@
   margin: 0 auto;
 }
 
-.wordContainer {
+.containerWords {
   display: flex;
   column-gap: 16px;
   margin: 120px 0 0;
@@ -14,12 +14,4 @@
 
 .input {
   width: 377px;
-}
-
-.sorting {
-  color: pink;
-}
-
-.sorted {
-  color: green;
 }
