@@ -39,8 +39,8 @@ export const SortingPage: React.FC = () => {
   };
 
   const createArray = () => {
-    const minLength = 3;
-    const maxLength = 6;
+    const minLength = 15;
+    const maxLength = 17;
     setArrayNumbers(
       randomArr(minLength, maxLength).map((num) => ({
         num,
@@ -58,7 +58,7 @@ export const SortingPage: React.FC = () => {
   const handleButtonSort = async (order: "ascending" | "descending") => {
     setLoaderAscending(order === "ascending");
     setLoaderDescending(order === "descending");
-    
+
     const arrayCopy = arrayNumbers.map((number) => ({
       ...number,
       sorted: false,
@@ -66,56 +66,101 @@ export const SortingPage: React.FC = () => {
     }));
     setArrayNumbers(arrayCopy);
 
-    for (let i = 0; i < arrayCopy.length - 1; i++) {
-      let compareIndex = i;
-      setArrayNumbers((prevNumbers) =>
-        prevNumbers.map((number, index) => ({
-          ...number,
-          sorting: index === i || index === compareIndex,
-        }))
-      );
-      await animate(500);
-
-      for (let j = i + 1; j < arrayCopy.length; j++) {
+    //если сортировка выбором
+    if (selectedOption === "Выбор") {
+      for (let i = 0; i < arrayCopy.length - 1; i++) {
+        let compareIndex = i;
         setArrayNumbers((prevNumbers) =>
           prevNumbers.map((number, index) => ({
             ...number,
-            sorting: index === i || index === j,
+            sorting: index === i,
           }))
         );
-        await animate(500);
+        await animate(1000);
 
-        const shouldSwap =
-          order === "descending"
-            ? arrayCopy[j].num > arrayCopy[compareIndex].num
-            : arrayCopy[j].num < arrayCopy[compareIndex].num;
+        for (let j = i + 1; j < arrayCopy.length; j++) {
+          setArrayNumbers((prevNumbers) =>
+            prevNumbers.map((number, index) => ({
+              ...number,
+              sorting: index === i || index === j,
+            }))
+          );
+          await animate(1000);
 
-        if (shouldSwap) {
-          compareIndex = j;
+          const shouldSwap =
+            order === "descending"
+              ? arrayCopy[j].num > arrayCopy[compareIndex].num
+              : arrayCopy[j].num < arrayCopy[compareIndex].num;
+
+          if (shouldSwap) {
+            compareIndex = j;
+          }
         }
+
+        if (compareIndex !== i) {
+          const temp = arrayCopy[i];
+          arrayCopy[i] = arrayCopy[compareIndex];
+          arrayCopy[compareIndex] = temp;
+        }
+
+        arrayCopy[i] = { ...arrayCopy[i], sorted: true };
+        setArrayNumbers([...arrayCopy]);
+
+        setArrayNumbers((prevNumbers) =>
+          prevNumbers.map((number) => ({
+            ...number,
+            sorting: false,
+          }))
+        );
       }
-
-      if (compareIndex !== i) {
-        const temp = arrayCopy[i];
-        arrayCopy[i] = arrayCopy[compareIndex];
-        arrayCopy[compareIndex] = temp;
-      }
-
-      arrayCopy[i] = { ...arrayCopy[i], sorted: true };
-      setArrayNumbers([...arrayCopy]);
-
-      setArrayNumbers((prevNumbers) =>
-        prevNumbers.map((number) => ({
-          ...number,
-          sorting: false,
-        }))
-      );
+      arrayCopy[arrayCopy.length - 1] = {
+        ...arrayCopy[arrayCopy.length - 1],
+        sorted: true,
+      };
     }
 
-    arrayCopy[arrayCopy.length - 1] = {
-      ...arrayCopy[arrayCopy.length - 1],
-      sorted: true,
-    };
+    // если сортировка пузырьком
+    if (selectedOption === "Пузырёк") {
+      for (let i = 0; i < arrayCopy.length - 1; i++) {
+        for (let j = 0; j < arrayCopy.length - i - 1; j++) {
+          setArrayNumbers((prevNumbers) =>
+            prevNumbers.map((number, index) => ({
+              ...number,
+              sorting: index === j - 1 || index === j,
+            }))
+          );
+          await animate(1000);
+          setArrayNumbers((prevNumbers) =>
+            prevNumbers.map((number, index) => ({
+              ...number,
+              sorting: index === j || index === j + 1,
+            }))
+          );
+          await animate(1000);
+
+          const shouldSwap =
+            order === "descending"
+              ? arrayCopy[j].num < arrayCopy[j + 1].num
+              : arrayCopy[j].num > arrayCopy[j + 1].num;
+
+          if (shouldSwap) {
+            const temp = arrayCopy[j];
+            arrayCopy[j] = arrayCopy[j + 1];
+            arrayCopy[j + 1] = temp;
+          }
+          setArrayNumbers([...arrayCopy]);
+        }
+
+        arrayCopy[arrayCopy.length - i - 1] = {
+          ...arrayCopy[arrayCopy.length - i - 1],
+          sorted: true,
+        };
+      }
+      arrayCopy[0] = {
+        ...arrayCopy[0],
+        sorted: true,
+      };
+    }
 
     setArrayNumbers(arrayCopy);
     setLoaderAscending(false);
@@ -174,8 +219,8 @@ export const SortingPage: React.FC = () => {
               sorting
                 ? ElementStates.Changing
                 : sorted
-                ? ElementStates.Modified
-                : ElementStates.Default
+                  ? ElementStates.Modified
+                  : ElementStates.Default
             }
           />
         ))}
