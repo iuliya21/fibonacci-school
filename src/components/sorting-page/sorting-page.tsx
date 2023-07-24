@@ -39,7 +39,7 @@ export const SortingPage: React.FC = () => {
   };
 
   const createArray = () => {
-    const minLength = 15;
+    const minLength = 3;
     const maxLength = 17;
     setArrayNumbers(
       randomArr(minLength, maxLength).map((num) => ({
@@ -62,7 +62,7 @@ export const SortingPage: React.FC = () => {
     const arrayCopy = arrayNumbers.map((number) => ({
       ...number,
       sorted: false,
-      sorting: false
+      sorting: false,
     }));
     setArrayNumbers(arrayCopy);
 
@@ -76,7 +76,7 @@ export const SortingPage: React.FC = () => {
             sorting: index === i,
           }))
         );
-        await animate(1000);
+        await animate(500);
 
         for (let j = i + 1; j < arrayCopy.length; j++) {
           setArrayNumbers((prevNumbers) =>
@@ -85,7 +85,7 @@ export const SortingPage: React.FC = () => {
               sorting: index === i || index === j,
             }))
           );
-          await animate(1000);
+          await animate(500);
 
           const shouldSwap =
             order === "descending"
@@ -129,14 +129,14 @@ export const SortingPage: React.FC = () => {
               sorting: index === j - 1 || index === j,
             }))
           );
-          await animate(1000);
+          await animate(500);
           setArrayNumbers((prevNumbers) =>
             prevNumbers.map((number, index) => ({
               ...number,
               sorting: index === j || index === j + 1,
             }))
           );
-          await animate(1000);
+          await animate(500);
 
           const shouldSwap =
             order === "descending"
@@ -150,7 +150,6 @@ export const SortingPage: React.FC = () => {
           }
           setArrayNumbers([...arrayCopy]);
         }
-
         arrayCopy[arrayCopy.length - i - 1] = {
           ...arrayCopy[arrayCopy.length - i - 1],
           sorted: true,
@@ -219,8 +218,8 @@ export const SortingPage: React.FC = () => {
               sorting
                 ? ElementStates.Changing
                 : sorted
-                  ? ElementStates.Modified
-                  : ElementStates.Default
+                ? ElementStates.Modified
+                : ElementStates.Default
             }
           />
         ))}

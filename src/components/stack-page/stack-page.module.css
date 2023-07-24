@@ -1,0 +1,16 @@
+.container {
+  display: flex;
+  min-width: 630px;
+  column-gap: 12px;
+}
+
+.main {
+  display: flex;
+  column-gap: 80px;
+  margin: 0 auto;
+  max-width: 829px;
+}
+
+.stack {
+  
+}
