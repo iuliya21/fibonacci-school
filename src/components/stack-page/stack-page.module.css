@@ -12,5 +12,10 @@
 }
 
 .stack {
-  
+  display: flex;
+  justify-content: center;
+  column-gap: 10px;
+  flex-wrap: wrap;
+  max-width: 600px;
+  margin: 0 auto;
 }

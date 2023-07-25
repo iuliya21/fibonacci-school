@@ -1,6 +1,10 @@
 export default class Stack<T> {
   private data: Array<T> = [];
 
+  constructor() {
+    this.data = [];
+  }
+
   public push(item: T) {
     this.data.push(item);
   }
