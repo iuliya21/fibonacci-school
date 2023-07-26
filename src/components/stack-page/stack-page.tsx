@@ -3,7 +3,7 @@ import { SolutionLayout } from "../ui/solution-layout/solution-layout";
 import { Input } from "../ui/input/input";
 import styles from "./stack-page.module.css";
 import { Button } from "../ui/button/button";
-import Stack from "../../types/stack";
+import Stack from "./stack";
 import { Circle } from "../ui/circle/circle";
 import { ElementStates } from "../../types/element-states";
 
@@ -33,7 +33,7 @@ export const StackPage: React.FC = () => {
 
   const handleInputChange = (
     event: React.ChangeEvent<HTMLInputElement>
-  ): any => {
+  ): void => {
     setInputValue(event.target.value);
   };
 

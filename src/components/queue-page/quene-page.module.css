@@ -11,11 +11,11 @@
   max-width: 829px;
 }
 
-.quene {
+.queue {
   display: flex;
   justify-content: center;
   column-gap: 10px;
   flex-wrap: wrap;
-  max-width: 600px;
+  max-width: 650px;
   margin: 52px auto 0;
 }
