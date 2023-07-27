@@ -68,7 +68,7 @@ export const StringComponent: React.FC = () => {
         <Button
           text="Развернуть"
           onClick={handleButtonClick}
-          style={{ width: 178 }}
+          style={{ width: 133 }}
           isLoader={loader}
         />
       </div>

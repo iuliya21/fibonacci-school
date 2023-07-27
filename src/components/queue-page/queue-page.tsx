@@ -1,22 +1,38 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { SolutionLayout } from "../ui/solution-layout/solution-layout";
 import styles from "./quene-page.module.css";
 import { Input } from "../ui/input/input";
 import { Button } from "../ui/button/button";
 import { Circle } from "../ui/circle/circle";
 import Quene from "./quene";
+import { ElementStates } from "../../types/element-states";
 
 type QueueElement = {
   element: string;
   color: boolean;
-}
+};
 
 export const QueuePage: React.FC = () => {
   const [inputValue, setInputValue] = useState<string>("");
   const [queue, setQueue] = useState<Quene<string>>(new Quene<string>());
-  const [elements, setElements] = useState<QueueElement[]>(queue.elements().map((element) => ({ element, color: false })));
+  const [elements, setElements] = useState<QueueElement[]>(
+    queue.elements().map((element) => ({ element, color: false }))
+  );
   const [headIndex, setHeadIndex] = useState<number | null>(null);
   const [tailIndex, setTailIndex] = useState<number | null>(null);
+  const [addButtonDisabled, setAddButtonDisabled] = useState(true);
+  const [deleteButtonDisabled, setDeleteButtonDisabled] = useState(true);
+  const [clearButtonDisabled, setClearButtonDisabled] = useState(true);
+
+  useEffect(() => {
+    setAddButtonDisabled(inputValue.trim().length === 0);
+  }, [inputValue]);
+
+  useEffect(() => {
+    setDeleteButtonDisabled(elements.length === 0);
+    setClearButtonDisabled(elements.length === 0);
+    setAddButtonDisabled(elements.length === 0);
+  }, [elements]);
 
   const handleInputChange = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -30,24 +46,44 @@ export const QueuePage: React.FC = () => {
     });
 
   const handleAdd = async () => {
+    setAddButtonDisabled(true);
     queue.enqueue(inputValue);
     const newElements: QueueElement[] = [
       ...queue.elements().map((element) => ({ element, color: false })),
     ];
-    setElements(newElements);
-    setInputValue("");
-    setHeadIndex(queue.isEmpty() ? null : 0);
-    setTailIndex(queue.isEmpty() ? null : newElements.length - 1);
-  };
-
-  const handleRemove = (): void => {
-    queue.dequeue();
-    const newElements: string[] = queue.elements();
     const lastIndex = newElements.length - 1;
     newElements[lastIndex] = {
       ...newElements[lastIndex],
       color: true,
     };
+    setElements(newElements);
+    setInputValue("");
+    setHeadIndex(queue.isEmpty() ? null : 0);
+    setTailIndex(queue.isEmpty() ? null : newElements.length - 1);
+    await animate(500);
+    setElements((prevState) =>
+      prevState.map((element) => ({
+        ...element,
+        color: false,
+      }))
+    );
+    setAddButtonDisabled(false);
+  };
+
+  const handleRemove = async () => {
+    let newElements: QueueElement[] = [
+      ...queue.elements().map((element) => ({ element, color: false })),
+    ];
+    newElements[0] = {
+      ...newElements[0],
+      color: true,
+    };
+    setElements(newElements);
+    await animate(500);
+    queue.dequeue();
+    newElements = [
+      ...queue.elements().map((element) => ({ element, color: false })),
+    ];
     setElements(newElements);
     setHeadIndex(queue.isEmpty() ? null : 0);
     setTailIndex(queue.isEmpty() ? null : newElements.length - 1);
@@ -55,7 +91,10 @@ export const QueuePage: React.FC = () => {
 
   const handleClear = (): void => {
     queue.clear();
-    setElements(["", "", "", "", "", "", ""]);
+    const newElements: QueueElement[] = [
+      ...queue.elements().map((element) => ({ element, color: false })),
+    ];
+    setElements(newElements);
     setHeadIndex(null);
     setTailIndex(null);
   };
@@ -67,22 +106,44 @@ export const QueuePage: React.FC = () => {
       <div className={styles.main}>
         <div className={styles.container}>
           <Input
+            placeholder="Введите значение"
             maxLength={4}
             isLimitText={true}
             value={inputValue}
             onChange={handleInputChange}
           />
-          <Button text="Добавить" onClick={handleAdd} disabled={isQueueFull} />
-          <Button text="Удалить" onClick={handleRemove} />
+          <Button
+            text="Добавить"
+            onClick={handleAdd}
+            disabled={isQueueFull || addButtonDisabled}
+          />
+          <Button
+            text="Удалить"
+            onClick={handleRemove}
+            disabled={deleteButtonDisabled}
+          />
         </div>
-        <Button text="Очистить" onClick={handleClear} />
+        <Button
+          text="Очистить"
+          onClick={handleClear}
+          disabled={clearButtonDisabled}
+        />
       </div>
       <div className={styles.queue}>
         {Array.from({ length: 7 }, (el, index) => {
-          const item = elements[index] || "";
+          const item = elements[index];
+          const letter = item ? item.element : "";
+          const color = item ? item.color : "";
           return (
-            <Circle key={index} index={index} letter={item} head={headIndex === index ? "head" : ""} tail={tailIndex === index ? "tail" : ""} />
-          )
+            <Circle
+              key={index}
+              index={index}
+              letter={letter}
+              head={headIndex === index ? "head" : ""}
+              tail={tailIndex === index ? "tail" : ""}
+              state={color ? ElementStates.Changing : ElementStates.Default}
+            />
+          );
         })}
       </div>
     </SolutionLayout>
