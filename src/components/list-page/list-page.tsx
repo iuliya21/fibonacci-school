@@ -12,21 +12,23 @@ type ValueInfo = {
   value: string;
   changing: boolean;
   modified: boolean;
-}
+  smallCircleHead: boolean;
+  smallCircleTail: boolean;
+};
 
 export const ListPage: React.FC = () => {
-
   const initialList = ["0", "34", "8", "1"].map((item) => ({
     value: item,
     changing: false,
     modified: false,
+    smallCircleHead: false,
+    smallCircleTail: false,
   }));
 
   const [list, setList] = useState(new LinkedList<ValueInfo>(initialList));
 
   const [inputValue, setInputValue] = useState("");
   const [indexValue, setIndexValue] = useState("");
-  const [smallCircle, setSmallCircle] = useState(false);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
@@ -43,69 +45,211 @@ export const ListPage: React.FC = () => {
 
   const handleAddToHead = async () => {
     setList((prevList: LinkedList<ValueInfo>) => {
-      const newList = new LinkedList<ValueInfo>([
-        { value: inputValue, changing: false, modified: true },
-        ...prevList.toArray(),
-      ]);
+      const newList = new LinkedList<ValueInfo>(prevList.toArray());
+      const firstNode = newList.getFirstNode();
+      if (firstNode) {
+        firstNode.value = {
+          ...firstNode.value,
+          smallCircleHead: true,
+        };
+      }
+      return newList;
+    });
+    await animate(500);
+    setList((prevList: LinkedList<ValueInfo>) => {
+      const newList = new LinkedList<ValueInfo>();
+      newList.prepend({
+        value: inputValue,
+        changing: false,
+        modified: true,
+        smallCircleHead: false,
+        smallCircleTail: false,
+      });
+      const currentArray = prevList.toArray();
+      for (const item of currentArray) {
+        newList.append(item);
+      }
       setInputValue("");
       return newList;
     });
     await animate(500);
     setList((prevList: LinkedList<ValueInfo>) => {
       const listArray = prevList.toArray();
-      const updatedListArray = listArray.map((el) => ({
+      const updateListArray = listArray.map((el) => ({
         ...el,
         changing: false,
         modified: false,
+        smallCircleHead: false,
       }));
-      const updatedList = new LinkedList<ValueInfo>(updatedListArray);
+      const updatedList = new LinkedList<ValueInfo>(updateListArray);
       return updatedList;
     });
   };
 
-  const handleAddToTail = () => {
+  const handleAddToTail = async () => {
     setList((prevList: LinkedList<ValueInfo>) => {
-      const newElement: ValueInfo = {
+      const newList = new LinkedList<ValueInfo>(prevList.toArray());
+      const lastNode = newList.getLastNode();
+      if (lastNode) {
+        lastNode.value = {
+          ...lastNode.value,
+          smallCircleHead: true,
+        };
+      }
+      return newList;
+    });
+    await animate(500);
+    setList((prevList: LinkedList<ValueInfo>) => {
+      const newList = new LinkedList<ValueInfo>();
+      const currentArray = prevList.toArray();
+      for (const item of currentArray) {
+        newList.append(item);
+      }
+      newList.append({
         value: inputValue,
         changing: false,
-        modified: false,
-      };
-
-      const newList = new LinkedList<ValueInfo>([
-        ...prevList.toArray(),
-        newElement,
-      ]);
-
+        modified: true,
+        smallCircleHead: false,
+        smallCircleTail: false,
+      });
       setInputValue("");
       return newList;
     });
+    await animate(500);
+    setList((prevList: LinkedList<ValueInfo>) => {
+      const listArray = prevList.toArray();
+      const updateListArray = listArray.map((el) => ({
+        ...el,
+        changing: false,
+        modified: false,
+        smallCircleHead: false,
+      }));
+      const updatedList = new LinkedList<ValueInfo>(updateListArray);
+      return updatedList;
+    });
   };
 
-  const handleDeleteFromHead = () => {
+  const handleDeleteFromHead = async () => {
+    setList((prevList: LinkedList<ValueInfo>) => {
+      const newList = new LinkedList<ValueInfo>(prevList.toArray());
+      const firstNode = newList.getFirstNode();
+      if (firstNode) {
+        firstNode.value = {
+          ...firstNode.value,
+          smallCircleTail: true,
+        };
+      }
+      return newList;
+    });
+    await animate(500);
+    setList((prevList: LinkedList<ValueInfo>) => {
+      const listArray = prevList.toArray();
+      const updateListArray = listArray.map((el) => ({
+        ...el,
+        smallCircleTail: false,
+      }));
+      const updatedList = new LinkedList<ValueInfo>(updateListArray);
+      return updatedList;
+    });
     setList((prevList: LinkedList<ValueInfo>) => {
       const newList = new LinkedList<ValueInfo>(prevList.toArray().slice(1));
       return newList;
     });
   };
 
-  const handleDeleteFromTail = () => {
+  const handleDeleteFromTail = async () => {
     setList((prevList: LinkedList<ValueInfo>) => {
-      const newList = new LinkedList<ValueInfo>(prevList.toArray().slice(0, -1));
+      const newList = new LinkedList<ValueInfo>(prevList.toArray());
+      const lastNode = newList.getLastNode();
+      if (lastNode) {
+        lastNode.value = {
+          ...lastNode.value,
+          smallCircleTail: true,
+        };
+      }
+      return newList;
+    });
+    await animate(500);
+    setList((prevList: LinkedList<ValueInfo>) => {
+      const listArray = prevList.toArray();
+      const updateListArray = listArray.map((el) => ({
+        ...el,
+        smallCircleTail: false,
+      }));
+      const updatedList = new LinkedList<ValueInfo>(updateListArray);
+      return updatedList;
+    });
+    setList((prevList: LinkedList<ValueInfo>) => {
+      const newList = new LinkedList<ValueInfo>(
+        prevList.toArray().slice(0, -1)
+      );
       return newList;
     });
   };
 
-  const handleAddByIndex = () => {
+  const handleAddByIndex = async () => {
     const index = parseInt(indexValue);
+    for (let i = 0; i <= index; i++) {
+      setList((prevList: LinkedList<ValueInfo>) => {
+        const newList = new LinkedList<ValueInfo>(prevList.toArray());
+        const currentNode = newList.getNodeByIndex(i);
+        const lastNode = newList.getNodeByIndex(i - 1);
+        if (currentNode) {
+          currentNode.value = {
+            ...currentNode.value,
+            smallCircleHead: true,
+          };
+        }
+        if (lastNode) {
+          lastNode.value = {
+            ...lastNode.value,
+            changing: true,
+            smallCircleHead: false,
+          };
+        }
+        return newList;
+      });
+      await animate(1000);
+    }
+
     if (!isNaN(index)) {
       setList((prevList: LinkedList<ValueInfo>) => {
         const newList = new LinkedList<ValueInfo>(prevList.toArray());
-        newList.addByIndex({ value: inputValue, changing: false, modified: false }, index);
+        newList.addByIndex(
+          {
+            value: inputValue,
+            changing: false,
+            modified: true,
+            smallCircleHead: false,
+            smallCircleTail: false,
+          },
+          index
+        );
         setInputValue("");
         setIndexValue("");
         return newList;
       });
     }
+
+    setList((prevList: LinkedList<ValueInfo>) => {
+      const listArray = prevList.toArray();
+      const updateListArray = listArray.map((el) => ({
+        ...el,
+        changing: false,
+        smallCircleHead: false,
+      }));
+      const updatedList = new LinkedList<ValueInfo>(updateListArray);
+      return updatedList;
+    });
+    await animate(500);
+    setList((prevList: LinkedList<ValueInfo>) => {
+      const newList = new LinkedList<ValueInfo>(prevList.toArray());
+      const addedElement = newList.getNodeByIndex(index);
+      if (addedElement) {
+        addedElement.value.modified = false;
+      }
+      return newList;
+    });
   };
 
   const handleDeleteByIndex = () => {
@@ -174,12 +318,62 @@ export const ListPage: React.FC = () => {
         />
       </div>
       <div className={styles.containerList}>
-        {list.toArray().map(({ value, changing, modified }, index) => (
-          <React.Fragment key={index}>
-            <Circle letter={value} state={modified ? ElementStates.Modified : changing ? ElementStates.Changing : ElementStates.Default} head={index === 0 ? (smallCircle ? <Circle isSmall state={ElementStates.Changing} letter={inputValue} /> : "head") : ""} tail={index === list.toArray().length - 1 ? "tail" : ""} />
-            {index !== list.toArray().length - 1 && <ArrowIcon />}
-          </React.Fragment>
-        ))}
+        {list
+          .toArray()
+          .map(
+            (
+              { value, changing, modified, smallCircleHead, smallCircleTail },
+              index
+            ) => (
+              <React.Fragment key={index}>
+                <Circle
+                  letter={smallCircleTail ? "" : value}
+                  state={
+                    modified
+                      ? ElementStates.Modified
+                      : changing
+                      ? ElementStates.Changing
+                      : ElementStates.Default
+                  }
+                  head={
+                    smallCircleHead ? (
+                      <Circle
+                        isSmall
+                        letter={inputValue}
+                        state={ElementStates.Changing}
+                      />
+                    ) : index === 0 ? (
+                      "head"
+                    ) : (
+                      ""
+                    )
+                  }
+                  tail={
+                    smallCircleTail ? (
+                      <Circle
+                        isSmall
+                        letter={value}
+                        state={ElementStates.Changing}
+                      />
+                    ) : (smallCircleTail && index === 0) ||
+                      (smallCircleTail &&
+                        index === list.toArray().length - 1) ? (
+                      <Circle
+                        isSmall
+                        letter={value}
+                        state={ElementStates.Changing}
+                      />
+                    ) : index === list.toArray().length - 1 ? (
+                      "tail"
+                    ) : (
+                      ""
+                    )
+                  }
+                />
+                {index !== list.toArray().length - 1 && <ArrowIcon />}
+              </React.Fragment>
+            )
+          )}
       </div>
     </SolutionLayout>
   );
