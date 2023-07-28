@@ -1,3 +1,5 @@
+import { ElementStates } from "../../types/element-states";
+
 export class LinkedListNode<T> {
   value: T;
   next: LinkedListNode<T> | null;
