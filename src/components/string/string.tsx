@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { SolutionLayout } from "../ui/solution-layout/solution-layout";
 import { Input } from "../ui/input/input";
 import { Button } from "../ui/button/button";
@@ -16,6 +16,11 @@ export const StringComponent: React.FC = () => {
   const [inputValue, setInputValue] = useState<string>("");
   const [word, setWord] = useState<CharInfo[]>([]);
   const [loader, setLoader] = useState<boolean>(false);
+  const [disabledButton, setDisablesButton] = useState<boolean>(true);
+
+  useEffect(() => {
+    setDisablesButton(inputValue.trim().length === 0);
+  }, [inputValue])
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
@@ -70,6 +75,7 @@ export const StringComponent: React.FC = () => {
           onClick={handleButtonClick}
           style={{ width: 133 }}
           isLoader={loader}
+          disabled={disabledButton}
         />
       </div>
       <div className={styles.containerWords}>

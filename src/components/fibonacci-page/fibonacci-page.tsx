@@ -9,10 +9,12 @@ export const FibonacciPage: React.FC = () => {
   const [inputValue, setInputValue] = useState<number>(1);
   const [loader, setLoader] = useState<boolean>(false);
   const [numbers, setNumbers] = useState<number[]>([]);
-
-
+  const [disabledButton, setDisablesButton] = useState<boolean>(true);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const isValid =
+      parseInt(event.target.value) <= 19 && parseInt(event.target.value) >= 1;
+    setDisablesButton(!isValid);
     setInputValue(parseInt(event.target.value));
   };
 
@@ -49,6 +51,7 @@ export const FibonacciPage: React.FC = () => {
             onChange={handleInputChange}
             max={19}
             min={1}
+            value={inputValue}
           />
         </div>
         <Button
@@ -56,7 +59,7 @@ export const FibonacciPage: React.FC = () => {
           style={{ width: 178 }}
           onClick={handleButton}
           isLoader={loader}
-          disabled={inputValue > 19 ? true : inputValue < 1 ? true : false}
+          disabled={disabledButton}
         />
       </div>
       <div className={styles.containerNumbers}>

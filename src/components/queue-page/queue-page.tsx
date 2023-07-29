@@ -23,6 +23,8 @@ export const QueuePage: React.FC = () => {
   const [addButtonDisabled, setAddButtonDisabled] = useState(true);
   const [deleteButtonDisabled, setDeleteButtonDisabled] = useState(true);
   const [clearButtonDisabled, setClearButtonDisabled] = useState(true);
+  const [loaderAdd, setLoaderAdd] = useState<boolean>(false);
+  const [loaderDelete, setLoaderDelete] = useState<boolean>(false);
 
   useEffect(() => {
     setAddButtonDisabled(inputValue.trim().length === 0);
@@ -46,7 +48,7 @@ export const QueuePage: React.FC = () => {
     });
 
   const handleAdd = async () => {
-    setAddButtonDisabled(true);
+    setLoaderAdd(true);
     queue.enqueue(inputValue);
     const newElements: QueueElement[] = [
       ...queue.elements().map((element) => ({ element, color: false })),
@@ -67,10 +69,11 @@ export const QueuePage: React.FC = () => {
         color: false,
       }))
     );
-    setAddButtonDisabled(false);
+    setLoaderAdd(false);
   };
 
   const handleRemove = async () => {
+    setLoaderDelete(true);
     let newElements: QueueElement[] = [
       ...queue.elements().map((element) => ({ element, color: false })),
     ];
@@ -87,6 +90,7 @@ export const QueuePage: React.FC = () => {
     setElements(newElements);
     setHeadIndex(queue.isEmpty() ? null : 0);
     setTailIndex(queue.isEmpty() ? null : newElements.length - 1);
+    setLoaderDelete(false);
   };
 
   const handleClear = (): void => {
@@ -116,11 +120,13 @@ export const QueuePage: React.FC = () => {
             text="Добавить"
             onClick={handleAdd}
             disabled={isQueueFull || addButtonDisabled}
+            isLoader={loaderAdd}
           />
           <Button
             text="Удалить"
             onClick={handleRemove}
             disabled={deleteButtonDisabled}
+            isLoader={loaderDelete}
           />
         </div>
         <Button

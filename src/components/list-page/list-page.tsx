@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { SolutionLayout } from "../ui/solution-layout/solution-layout";
 import styles from "./list-page.module.css";
 import { Input } from "../ui/input/input";
@@ -26,9 +26,28 @@ export const ListPage: React.FC = () => {
   }));
 
   const [list, setList] = useState(new LinkedList<ValueInfo>(initialList));
-
   const [inputValue, setInputValue] = useState("");
   const [indexValue, setIndexValue] = useState("");
+  const [addButtonDisable, setAddButtonDisable] = useState(true);
+  const [addButtonIndexDisable, setAddButtonIndexDisable] = useState(true);
+  const [removeButtonIndexDisable, setRemoveButtonIndexDisable] =
+    useState(true);
+  const [loaderAddToHead, setAddToHeadLoader] = useState<boolean>(false);
+  const [loaderRemoveToHead, setRemoveToHeadLoader] = useState<boolean>(false);
+  const [loaderAddToTail, setAddToTailLoader] = useState<boolean>(false);
+  const [loaderRemoveToTail, setremoveToTailLoader] = useState<boolean>(false);
+  const [loaderAddIndex, setAddIndexLoader] = useState<boolean>(false);
+  const [loaderRemoveIndex, setRemoveIndexLoader] = useState<boolean>(false);
+
+  useEffect(() => {
+    const input = inputValue.trim().length === 0;
+    setAddButtonDisable(input);
+    const length = list.toArray().length;
+    const isValid =
+      parseInt(indexValue) >= 0 && parseInt(indexValue) <= length - 1;
+    setAddButtonIndexDisable(!isValid || input);
+    setRemoveButtonIndexDisable(length !== 0 && !isValid);
+  }, [inputValue, indexValue]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
@@ -44,6 +63,7 @@ export const ListPage: React.FC = () => {
     });
 
   const handleAddToHead = async () => {
+    setAddToHeadLoader(true);
     setList((prevList: LinkedList<ValueInfo>) => {
       const newList = new LinkedList<ValueInfo>(prevList.toArray());
       const firstNode = newList.getFirstNode();
@@ -74,6 +94,7 @@ export const ListPage: React.FC = () => {
       setInputValue("");
       return newList;
     });
+    setAddToHeadLoader(false);
     await animate(700);
     setList((prevList: LinkedList<ValueInfo>) => {
       const listArray = prevList.toArray();
@@ -88,6 +109,7 @@ export const ListPage: React.FC = () => {
   };
 
   const handleAddToTail = async () => {
+    setAddToTailLoader(true);
     setList((prevList: LinkedList<ValueInfo>) => {
       const newList = new LinkedList<ValueInfo>(prevList.toArray());
       const lastNode = newList.getLastNode();
@@ -117,6 +139,7 @@ export const ListPage: React.FC = () => {
       setInputValue("");
       return newList;
     });
+    setAddToTailLoader(false);
     await animate(700);
     setList((prevList: LinkedList<ValueInfo>) => {
       const listArray = prevList.toArray();
@@ -132,6 +155,7 @@ export const ListPage: React.FC = () => {
   };
 
   const handleDeleteFromHead = async () => {
+    setRemoveToHeadLoader(true);
     setList((prevList: LinkedList<ValueInfo>) => {
       const newList = new LinkedList<ValueInfo>(prevList.toArray());
       const firstNode = newList.getFirstNode();
@@ -157,9 +181,11 @@ export const ListPage: React.FC = () => {
       const newList = new LinkedList<ValueInfo>(prevList.toArray().slice(1));
       return newList;
     });
+    setRemoveToHeadLoader(false);
   };
 
   const handleDeleteFromTail = async () => {
+    setremoveToTailLoader(true);
     setList((prevList: LinkedList<ValueInfo>) => {
       const newList = new LinkedList<ValueInfo>(prevList.toArray());
       const lastNode = newList.getLastNode();
@@ -181,15 +207,18 @@ export const ListPage: React.FC = () => {
       const updatedList = new LinkedList<ValueInfo>(updateListArray);
       return updatedList;
     });
+
     setList((prevList: LinkedList<ValueInfo>) => {
       const newList = new LinkedList<ValueInfo>(
         prevList.toArray().slice(0, -1)
       );
       return newList;
     });
+    setremoveToTailLoader(false);
   };
 
   const handleAddByIndex = async () => {
+    setAddIndexLoader(true);
     const index = parseInt(indexValue);
     for (let i = 0; i <= index; i++) {
       setList((prevList: LinkedList<ValueInfo>) => {
@@ -252,9 +281,11 @@ export const ListPage: React.FC = () => {
       }
       return newList;
     });
+    setAddIndexLoader(false);
   };
 
   const handleDeleteByIndex = async () => {
+    setRemoveIndexLoader(true);
     const index = parseInt(indexValue);
     for (let i = 0; i < index; i++) {
       setList((prevList: LinkedList<ValueInfo>) => {
@@ -312,6 +343,7 @@ export const ListPage: React.FC = () => {
       const updatedList = new LinkedList<ValueInfo>(updateListArray);
       return updatedList;
     });
+    setRemoveIndexLoader(false);
   };
 
   return (
@@ -329,21 +361,29 @@ export const ListPage: React.FC = () => {
           text="Добавить в head"
           linkedList="small"
           onClick={handleAddToHead}
+          disabled={addButtonDisable}
+          isLoader={loaderAddToHead}
         />
         <Button
           text="Добавить в tail"
           linkedList="small"
           onClick={handleAddToTail}
+          disabled={addButtonDisable}
+          isLoader={loaderAddToTail}
         />
         <Button
           text="Удалить из head"
           linkedList="small"
           onClick={handleDeleteFromHead}
+          disabled={!(list.toArray().length > 0)}
+          isLoader={loaderRemoveToHead}
         />
         <Button
           text="Удалить из tail"
           linkedList="small"
           onClick={handleDeleteFromTail}
+          disabled={!(list.toArray().length > 0)}
+          isLoader={loaderRemoveToTail}
         />
       </div>
       <div className={styles.containerBottom}>
@@ -360,11 +400,15 @@ export const ListPage: React.FC = () => {
           text="Добавить по индексу"
           linkedList="big"
           onClick={handleAddByIndex}
+          disabled={addButtonIndexDisable}
+          isLoader={loaderAddIndex}
         />
         <Button
           text="Удалить по индексу"
           linkedList="big"
           onClick={handleDeleteByIndex}
+          disabled={removeButtonIndexDisable}
+          isLoader={loaderRemoveIndex}
         />
       </div>
       <div className={styles.containerList}>

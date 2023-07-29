@@ -21,6 +21,8 @@ export const StackPage: React.FC = () => {
   const [addButtonDisabled, setAddButtonDisabled] = useState(true);
   const [deleteButtonDisabled, setDeleteButtonDisabled] = useState(true);
   const [clearButtonDisabled, setClearButtonDisabled] = useState(true);
+  const [loaderAdd, setLoaderAdd] = useState<boolean>(false);
+  const [loaderDelete, setLoaderDelete] = useState<boolean>(false);
 
   useEffect(() => {
     setAddButtonDisabled(inputValue.trim().length === 0);
@@ -43,7 +45,8 @@ export const StackPage: React.FC = () => {
     });
 
   const addButton = async () => {
-    setAddButtonDisabled(true);
+    setLoaderAdd(true);
+    setDeleteButtonDisabled(true);
     stack.push(inputValue);
     const newStackElements: StackElement[] = [
       ...stack.elements.map((element) => ({ element, color: false })),
@@ -61,10 +64,12 @@ export const StackPage: React.FC = () => {
         color: false,
       }))
     );
-    setAddButtonDisabled(false);
+    setInputValue("");
+    setLoaderAdd(false);
   };
 
   const deleteButton = async () => {
+    setLoaderDelete(true);
     const newStackElements: StackElement[] = [
       ...stack.elements.map((element) => ({ element, color: false })),
     ];
@@ -80,6 +85,7 @@ export const StackPage: React.FC = () => {
       ...stack.elements.map((element) => ({ element, color: false })),
     ];
     setStackElement(deleteElements);
+    setLoaderDelete(false);
   };
 
   const clearButton = () => {
@@ -100,10 +106,24 @@ export const StackPage: React.FC = () => {
             value={inputValue}
             onChange={handleInputChange}
           />
-          <Button text="Добавить" onClick={addButton} disabled={addButtonDisabled}/>
-          <Button text="Удалить" onClick={deleteButton} disabled={deleteButtonDisabled}/>
+          <Button
+            text="Добавить"
+            onClick={addButton}
+            disabled={addButtonDisabled}
+            isLoader={loaderAdd}
+          />
+          <Button
+            text="Удалить"
+            onClick={deleteButton}
+            disabled={deleteButtonDisabled}
+            isLoader={loaderDelete}
+          />
         </div>
-        <Button text="Очистить" onClick={clearButton} disabled={clearButtonDisabled}/>
+        <Button
+          text="Очистить"
+          onClick={clearButton}
+          disabled={clearButtonDisabled}
+        />
       </div>
       <div className={styles.stack}>
         {stackElements.map(({ element, color }, index) => (

@@ -15,7 +15,7 @@ type NumberInfo = {
 
 export const SortingPage: React.FC = () => {
   const [selectedOption, setSelectedOption] = useState("Выбор");
-  const [arrayNumbers, setArrayNumbers] = useState<NumberInfo[]>([]);
+  
   const [loaderDescending, setLoaderDescending] = useState<boolean>(false);
   const [loaderAscending, setLoaderAscending] = useState<boolean>(false);
 
@@ -37,6 +37,12 @@ export const SortingPage: React.FC = () => {
     }
     return arrayRand;
   };
+
+  const [arrayNumbers, setArrayNumbers] = useState<NumberInfo[]>(randomArr(3, 17).map((num) => ({
+    num,
+    sorting: false,
+    sorted: false,
+  })));
 
   const createArray = () => {
     const minLength = 3;

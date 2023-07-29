@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import styles from "./input.module.css";
 
 interface InputProps extends React.HTMLProps<HTMLInputElement> {
