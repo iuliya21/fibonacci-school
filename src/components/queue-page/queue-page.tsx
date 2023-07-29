@@ -60,7 +60,7 @@ export const QueuePage: React.FC = () => {
     setInputValue("");
     setHeadIndex(queue.isEmpty() ? null : 0);
     setTailIndex(queue.isEmpty() ? null : newElements.length - 1);
-    await animate(500);
+    await animate(700);
     setElements((prevState) =>
       prevState.map((element) => ({
         ...element,
@@ -79,7 +79,7 @@ export const QueuePage: React.FC = () => {
       color: true,
     };
     setElements(newElements);
-    await animate(500);
+    await animate(700);
     queue.dequeue();
     newElements = [
       ...queue.elements().map((element) => ({ element, color: false })),

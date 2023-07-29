@@ -36,7 +36,7 @@ export const FibonacciPage: React.FC = () => {
         clearInterval(interval);
         setLoader(false);
       }
-    }, 500);
+    }, 700);
   };
 
   return (

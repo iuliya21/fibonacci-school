@@ -76,7 +76,7 @@ export const SortingPage: React.FC = () => {
             sorting: index === i,
           }))
         );
-        await animate(500);
+        await animate(700);
 
         for (let j = i + 1; j < arrayCopy.length; j++) {
           setArrayNumbers((prevNumbers) =>
@@ -85,7 +85,7 @@ export const SortingPage: React.FC = () => {
               sorting: index === i || index === j,
             }))
           );
-          await animate(500);
+          await animate(700);
 
           const shouldSwap =
             order === "descending"
@@ -129,14 +129,14 @@ export const SortingPage: React.FC = () => {
               sorting: index === j - 1 || index === j,
             }))
           );
-          await animate(500);
+          await animate(700);
           setArrayNumbers((prevNumbers) =>
             prevNumbers.map((number, index) => ({
               ...number,
               sorting: index === j || index === j + 1,
             }))
           );
-          await animate(500);
+          await animate(700);
 
           const shouldSwap =
             order === "descending"

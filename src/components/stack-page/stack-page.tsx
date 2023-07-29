@@ -54,7 +54,7 @@ export const StackPage: React.FC = () => {
       color: true,
     };
     setStackElement(newStackElements);
-    await animate(500);
+    await animate(700);
     setStackElement((prevNumbers) =>
       prevNumbers.map((element) => ({
         ...element,
@@ -74,7 +74,7 @@ export const StackPage: React.FC = () => {
       color: true,
     };
     setStackElement(newStackElements);
-    await animate(500);
+    await animate(700);
     stack.pop();
     const deleteElements: StackElement[] = [
       ...stack.elements.map((element) => ({ element, color: false })),

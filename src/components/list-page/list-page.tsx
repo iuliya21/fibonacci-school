@@ -55,7 +55,7 @@ export const ListPage: React.FC = () => {
       }
       return newList;
     });
-    await animate(500);
+    await animate(700);
     setList((prevList: LinkedList<ValueInfo>) => {
       const newList = new LinkedList<ValueInfo>();
       newList.prepend({
@@ -66,20 +66,21 @@ export const ListPage: React.FC = () => {
         smallCircleTail: false,
       });
       const currentArray = prevList.toArray();
+
       for (const item of currentArray) {
         newList.append(item);
+        item.smallCircleHead = false;
       }
       setInputValue("");
       return newList;
     });
-    await animate(500);
+    await animate(700);
     setList((prevList: LinkedList<ValueInfo>) => {
       const listArray = prevList.toArray();
       const updateListArray = listArray.map((el) => ({
         ...el,
         changing: false,
         modified: false,
-        smallCircleHead: false,
       }));
       const updatedList = new LinkedList<ValueInfo>(updateListArray);
       return updatedList;
@@ -98,12 +99,13 @@ export const ListPage: React.FC = () => {
       }
       return newList;
     });
-    await animate(500);
+    await animate(700);
     setList((prevList: LinkedList<ValueInfo>) => {
       const newList = new LinkedList<ValueInfo>();
       const currentArray = prevList.toArray();
       for (const item of currentArray) {
         newList.append(item);
+        item.smallCircleHead = false;
       }
       newList.append({
         value: inputValue,
@@ -115,7 +117,7 @@ export const ListPage: React.FC = () => {
       setInputValue("");
       return newList;
     });
-    await animate(500);
+    await animate(700);
     setList((prevList: LinkedList<ValueInfo>) => {
       const listArray = prevList.toArray();
       const updateListArray = listArray.map((el) => ({
@@ -141,7 +143,7 @@ export const ListPage: React.FC = () => {
       }
       return newList;
     });
-    await animate(500);
+    await animate(700);
     setList((prevList: LinkedList<ValueInfo>) => {
       const listArray = prevList.toArray();
       const updateListArray = listArray.map((el) => ({
@@ -169,7 +171,7 @@ export const ListPage: React.FC = () => {
       }
       return newList;
     });
-    await animate(500);
+    await animate(700);
     setList((prevList: LinkedList<ValueInfo>) => {
       const listArray = prevList.toArray();
       const updateListArray = listArray.map((el) => ({
@@ -209,7 +211,7 @@ export const ListPage: React.FC = () => {
         }
         return newList;
       });
-      await animate(1000);
+      await animate(700);
     }
 
     if (!isNaN(index)) {
@@ -241,7 +243,7 @@ export const ListPage: React.FC = () => {
       const updatedList = new LinkedList<ValueInfo>(updateListArray);
       return updatedList;
     });
-    await animate(500);
+    await animate(700);
     setList((prevList: LinkedList<ValueInfo>) => {
       const newList = new LinkedList<ValueInfo>(prevList.toArray());
       const addedElement = newList.getNodeByIndex(index);
@@ -252,8 +254,47 @@ export const ListPage: React.FC = () => {
     });
   };
 
-  const handleDeleteByIndex = () => {
+  const handleDeleteByIndex = async () => {
     const index = parseInt(indexValue);
+    for (let i = 0; i < index; i++) {
+      setList((prevList: LinkedList<ValueInfo>) => {
+        const newList = new LinkedList<ValueInfo>(prevList.toArray());
+        const currentNode = newList.getNodeByIndex(i);
+        if (currentNode) {
+          currentNode.value = {
+            ...currentNode.value,
+            changing: true,
+          };
+        }
+        return newList;
+      });
+      await animate(700);
+    }
+    setList((prevList: LinkedList<ValueInfo>) => {
+      const newList = new LinkedList<ValueInfo>(prevList.toArray());
+      const currentNode = newList.getNodeByIndex(index);
+      if (currentNode) {
+        currentNode.value = {
+          ...currentNode.value,
+          changing: true,
+        };
+      }
+      return newList;
+    });
+    await animate(700);
+    setList((prevList: LinkedList<ValueInfo>) => {
+      const newList = new LinkedList<ValueInfo>(prevList.toArray());
+      const currentNode = newList.getNodeByIndex(index);
+      if (currentNode) {
+        currentNode.value = {
+          ...currentNode.value,
+          changing: false,
+          smallCircleTail: true,
+        };
+      }
+      return newList;
+    });
+    await animate(700);
     if (!isNaN(index)) {
       setList((prevList: LinkedList<ValueInfo>) => {
         const newList = new LinkedList<ValueInfo>(prevList.toArray());
@@ -262,6 +303,15 @@ export const ListPage: React.FC = () => {
         return newList;
       });
     }
+    setList((prevList: LinkedList<ValueInfo>) => {
+      const listArray = prevList.toArray();
+      const updateListArray = listArray.map((el) => ({
+        ...el,
+        changing: false,
+      }));
+      const updatedList = new LinkedList<ValueInfo>(updateListArray);
+      return updatedList;
+    });
   };
 
   return (
