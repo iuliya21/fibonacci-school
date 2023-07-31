@@ -1,0 +1,21 @@
+.container {
+  display: flex;
+  min-width: 630px;
+  column-gap: 12px;
+}
+
+.main {
+  display: flex;
+  column-gap: 80px;
+  margin: 0 auto;
+  max-width: 829px;
+}
+
+.queue {
+  display: flex;
+  justify-content: center;
+  column-gap: 10px;
+  flex-wrap: wrap;
+  max-width: 650px;
+  margin: 52px auto 0;
+}

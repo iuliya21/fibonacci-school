@@ -1,0 +1,28 @@
+.container {
+  display: flex;
+  max-width: 567px;
+  column-gap: 12px;
+  margin: 0 auto;
+}
+
+.input {
+  width: 377px;
+}
+
+.containerNumbers {
+  display: flex;
+  gap: 48px 16px;
+  margin: 48px auto 0;
+  justify-content: center;
+  max-width: 944px;
+  flex-wrap: wrap;
+}
+
+.number {
+  display: flex;
+  flex-direction: column;
+}
+
+.index {
+  margin: 8px 0;
+}

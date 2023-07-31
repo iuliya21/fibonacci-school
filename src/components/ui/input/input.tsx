@@ -1,4 +1,3 @@
-import React from "react";
 import styles from "./input.module.css";
 
 interface InputProps extends React.HTMLProps<HTMLInputElement> {
@@ -18,7 +17,7 @@ export const Input: React.FC<InputProps> = ({
 }) => {
   const limitText =
     type === "text"
-      ? `Максимум — ${maxLength} символа`
+      ? maxLength === 4 || maxLength === 3 || maxLength === 2 ? `Максимум — ${maxLength} символа` : `Максимум — ${maxLength} символов`
       : `Максимальное число — ${max}`;
 
   return (
