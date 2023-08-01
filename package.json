@@ -41,11 +41,13 @@
     ]
   },
   "devDependencies": {
-    "@testing-library/jest-dom": "^5.17.0",
-    "@testing-library/react": "^12.1.5",
-    "@types/react": "^18.2.15",
+    "@testing-library/jest-dom": "^5.16.2",
+    "@testing-library/react": "^12.1.2",
+    "@types/react": "^17.0.39",
     "@types/react-router-dom": "^5.3.3",
+    "@types/react-test-renderer": "^17.0.2",
     "@types/uuid": "^9.0.2",
+    "cypress": "^10.0.2",
     "jest": "^27.5.1"
   }
 }
