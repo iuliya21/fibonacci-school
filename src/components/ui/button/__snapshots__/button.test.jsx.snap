@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Отрисовка заблокированного компонента Button 1`] = `
+exports[`Button компонент Отрисовка заблокированного компонента Button 1`] = `
 <DocumentFragment>
   <button
     class="text text_type_button text_color_primary button undefined false "
@@ -14,7 +14,7 @@ exports[`Отрисовка заблокированного компонент�
 </DocumentFragment>
 `;
 
-exports[`Отрисовка компонента Button без текста 1`] = `
+exports[`Button компонент Отрисовка компонента Button без текста 1`] = `
 <DocumentFragment>
   <button
     class="text text_type_button text_color_primary button undefined false "
@@ -27,7 +27,7 @@ exports[`Отрисовка компонента Button без текста 1`] 
 </DocumentFragment>
 `;
 
-exports[`Отрисовка компонента Button с индикацией загрузки 1`] = `
+exports[`Button компонент Отрисовка компонента Button с индикацией загрузки 1`] = `
 <DocumentFragment>
   <button
     class="text text_type_button text_color_primary button undefined loader "
@@ -43,7 +43,7 @@ exports[`Отрисовка компонента Button с индикацией 
 </DocumentFragment>
 `;
 
-exports[`Отрисовка компонента Button с текстом 1`] = `
+exports[`Button компонент Отрисовка компонента Button с текстом 1`] = `
 <DocumentFragment>
   <button
     class="text text_type_button text_color_primary button undefined false "
