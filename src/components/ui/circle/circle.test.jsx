@@ -53,7 +53,7 @@ describe('Тестирование компонента Circle', () => {
     expect(asFragment()).toMatchSnapshot();
   });
   
-  test("Отрисовка компонента Circle с состоянием ElementStates.Modifield", () => {
+  test("Отрисовка компонента Circle с состоянием ElementStates.Modified", () => {
     const { asFragment } = render(<Circle state={ElementStates.Modified} />);
     expect(asFragment()).toMatchSnapshot();
   });
