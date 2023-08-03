@@ -10,17 +10,24 @@ describe("Тестирование алгоритма разворота стр�
       </MemoryRouter>
     );
 
-    const initialWord = ["h", "e", "l", "l", "o"];
-
     const button = screen.getByRole("button", { name: "Развернуть" });
     const input = screen.getByPlaceholderText("Введите текст");
 
+    fireEvent.change(input, { target: { value: 'hello' } });
     fireEvent.click(button);
-    expect(initialWord).toBeInTheDocument();
+    expect(button.textContent).not.toBe('Развернуть');
 
     await waitFor(() => {
-      const reversedWord = ["o", "l", "l", "e", "h"];
-      expect(reversedWord).toBeInTheDocument();
+      expect(screen.getByRole("button", { name: "Развернуть" }).textContent).toBe('Развернуть');
+
     });
+
+    const circles = screen.getAllByTestId(`circle`);
+    expect(circles.length).toBe(5);
+    expect(circles[0]).toHaveTextContent('o');
+    expect(circles[1]).toHaveTextContent('l');
+    expect(circles[2]).toHaveTextContent('l');
+    expect(circles[3]).toHaveTextContent('e');
+    expect(circles[4]).toHaveTextContent('h');
   });
 });

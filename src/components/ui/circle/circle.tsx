@@ -11,6 +11,7 @@ interface CircleProps {
   tailType?: "string" | "element";
   extraClass?: string;
   isSmall?: boolean;
+  
 }
 
 export const Circle: React.FC<CircleProps> = ({

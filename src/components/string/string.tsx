@@ -80,7 +80,7 @@ export const StringComponent: React.FC = () => {
       </div>
       <div className={styles.containerWords}>
         {word.map(({ char, sorting, sorted }, index) => (
-          <Circle key={index} letter={char} state={sorting ? ElementStates.Changing : sorted ? ElementStates.Modified : ElementStates.Default} />
+          <Circle data-testid="circle" key={index} letter={char} state={sorting ? ElementStates.Changing : sorted ? ElementStates.Modified : ElementStates.Default} />
         ))}
       </div>
     </SolutionLayout>
