@@ -2,6 +2,7 @@ import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import { StringComponent } from "./string";
 import { MemoryRouter } from "react-router-dom";
 import userEvent from "@testing-library/user-event";
+import { useState } from "react";
 
 describe("Тестирование алгоритма разворота строки StringComponent", () => {
   test("Корректный разворот строки с нечетным количеством символов", async () => {
@@ -13,24 +14,39 @@ describe("Тестирование алгоритма разворота стр�
 
     const button = screen.getByText(/Развернуть/i);
     const input = screen.getByPlaceholderText("Введите текст");
-
-    //userEvent.type(screen.getByRole("textbox"), "hello");
-
-    // fireEvent.change(input, { target: { value: 'hello' } });
-    // fireEvent.click(button);
-    // expect(button.textContent).not.toBe('Развернуть');
+    screen.queryAllByTestId("circle").map(item => expect(item).toBeNull());
+    userEvent.type(input, "hello");
+    userEvent.click(button);
+    await waitFor(() => {
+      expect(screen.findByTestId('button')).toHaveTextContent("Развернуть");
+    });
+    expect(screen.queryByTestId("button")).not.toHaveTextContent("Развернуть");
+    await waitFor(() => {
+      expect(screen.findByTestId('button')).toHaveTextContent("Развернуть");
+    });
 
     // await waitFor(() => {
-    //   expect(screen.getByRole("button", { name: "Развернуть" }).textContent).toBe('Развернуть');
-
+    //   expect(screen.queryByTestId("button")).not.toHaveTextContent("Развернуть");
     // });
 
-    // const circles = screen.getAllByTestId(`circle`);
-    // expect(circles.length).toBe(5);
-    // expect(circles[0]).toHaveTextContent('o');
-    // expect(circles[1]).toHaveTextContent('l');
-    // expect(circles[2]).toHaveTextContent('l');
-    // expect(circles[3]).toHaveTextContent('e');
-    // expect(circles[4]).toHaveTextContent('h');
+    // await waitFor(() => {
+    //   expect(screen.queryByTestId("button")).toHaveTextContent("Развернуть");
+    // });
+
+    // const result = ['o', 'l', 'l', 'e', 'h'];
+    // const circles = screen.queryAllByTestId("circle").map(item => item.getAttribute("letter"));
+    // expect(circles).toEqual(result);
+    
+    // screen.queryAllByTestId("circle").map(item => expect(item).toBeInTheDocument());
+    
+
+    // await waitFor(() => expect(screen.queryByTestId("button")).not.toHaveAttribute("isLoader"));
+
+    // const result = ['o', 'l', 'l', 'e', 'h'];
+
+    // const circles = screen.queryAllByTestId("circle").map(item => item.getAttribute("letter"));
+
+    // expect(circles).toEqual(result);
+
   });
 });

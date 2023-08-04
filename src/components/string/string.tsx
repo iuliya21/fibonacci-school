@@ -26,10 +26,30 @@ export const StringComponent: React.FC = () => {
     setInputValue(event.target.value);
   };
 
-  const handleButtonClick = () => {
+  const handleButtonClick = async () => {
     let wordInput = inputValue.split("").map((char) => ({ char, sorting: false, sorted: false }));
     setWord(wordInput);
     setLoader(true);
+    // for (let currentIndex = 0; currentIndex < wordInput.length / 2; currentIndex++) {
+    //   await new Promise((resolve) => setTimeout(resolve, 0)); // Добавим асинхронную задержку
+    //   setWord((prevWord) => {
+    //     const newWord = [...prevWord];
+    //     const lastIndex = newWord.length - 1 - currentIndex;
+    //     newWord[currentIndex] = { ...prevWord[currentIndex], sorting: true };
+    //     newWord[lastIndex] = { ...prevWord[lastIndex], sorting: true };
+    //     return newWord;
+    //   });
+    //   await new Promise((resolve) => setTimeout(resolve, 500)); // Добавим асинхронную задержку
+    //   setWord((prevWord) => {
+    //     const newWord = [...prevWord];
+    //     const lastIndex = newWord.length - 1 - currentIndex;
+    //     newWord[currentIndex] = { ...prevWord[lastIndex], sorting: false, sorted: true };
+    //     newWord[lastIndex] = { ...prevWord[currentIndex], sorting: false, sorted: true };
+    //     return newWord;
+    //   });
+
+    // }
+    
     let currentIndex = 0;
     const interval = setInterval(() => {
       if (currentIndex < wordInput.length / 2) {
@@ -57,6 +77,7 @@ export const StringComponent: React.FC = () => {
         setLoader(false);
       }
     }, 1000);
+    setLoader(false);
   }
 
   return (
@@ -71,6 +92,7 @@ export const StringComponent: React.FC = () => {
           />
         </div>
         <Button
+          data-testid="button"
           text="Развернуть"
           onClick={handleButtonClick}
           style={{ width: 133 }}
