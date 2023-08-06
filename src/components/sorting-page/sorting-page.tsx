@@ -16,7 +16,6 @@ type NumberInfo = {
 
 export const SortingPage: React.FC = () => {
 
-  console.log(sortingBubble([3, 10, 1, 2, 5, 0], "descending"));
   const [selectedOption, setSelectedOption] = useState("Выбор");
   
   const [loaderDescending, setLoaderDescending] = useState<boolean>(false);
