@@ -1,42 +1,49 @@
-const loader = '[data-cy="loader"]';
+import { loader, color_default, color_modified, color_changing, element, circle } from "../constants/constants";
 
+const step0 = [
+  { value: '1', color: color_default },
+  { value: '2', color: color_default },
+  { value: '3', color: color_default },
+  { value: '4', color: color_default },
+  { value: '5', color: color_default },
+];
 const step1 = [
-  {value: '1', color: BORDER_DEFAULT},
-  {value: '2', color: BORDER_DEFAULT},
-  {value: '3', color: BORDER_DEFAULT},
-  {value: '4', color: BORDER_DEFAULT},
-  {value: '5', color: BORDER_DEFAULT},
+  { value: '1', color: color_changing },
+  { value: '2', color: color_default },
+  { value: '3', color: color_default },
+  { value: '4', color: color_default },
+  { value: '5', color: color_changing },
 ];
 const step2 = [
-  {value: '1', color: BORDER_CHANGING},
-  {value: '2', color: BORDER_DEFAULT},
-  {value: '3', color: BORDER_DEFAULT},
-  {value: '4', color: BORDER_DEFAULT},
-  {value: '5', color: BORDER_CHANGING},
+  { value: '5', color: color_modified },
+  { value: '2', color: color_changing },
+  { value: '3', color: color_default },
+  { value: '4', color: color_changing },
+  { value: '1', color: color_modified },
 ];
 const step3 = [
-  {value: 'o', color: BORDER_MODIFIED},
-  {value: 'e', border: BORDER_CHANGING},
-  {value: 'l', border: BORDER_DEFAULT},
-  {value: 'l', border: BORDER_CHANGING},
-  {value: 'h', border: BORDER_MODIFIED},
+  { value: '5', color: color_modified },
+  { value: '4', color: color_modified },
+  { value: '3', color: color_default },
+  { value: '2', color: color_modified },
+  { value: '1', color: color_modified },
 ];
 const step4 = [
-  {value: 'o', border: BORDER_MODIFIED},
-  {value: 'l', border: BORDER_MODIFIED},
-  {value: 'l', border: BORDER_CHANGING},
-  {value: 'e', border: BORDER_MODIFIED},
-  {value: 'h', border: BORDER_MODIFIED},
+  { value: '5', color: color_modified },
+  { value: '4', color: color_modified },
+  { value: '3', color: color_changing },
+  { value: '2', color: color_modified },
+  { value: '1', color: color_modified },
 ];
 const step5 = [
-  {value: 'o', border: BORDER_MODIFIED},
-  {value: 'l', border: BORDER_MODIFIED},
-  {value: 'l', border: BORDER_MODIFIED},
-  {value: 'e', border: BORDER_MODIFIED},
-  {value: 'h', border: BORDER_MODIFIED},
+  { value: '5', color: color_modified },
+  { value: '4', color: color_modified },
+  { value: '3', color: color_modified },
+  { value: '2', color: color_modified },
+  { value: '1', color: color_modified },
 ];
 
-const resultArray = (step) => {
+const result = (step) => {
   switch (step) {
     case 0: return step0;
     case 1: return step1;
@@ -44,7 +51,6 @@ const resultArray = (step) => {
     case 3: return step3;
     case 4: return step4;
     case 5: return step5;
-    case 6: return step6;
   }
 }
 
@@ -65,27 +71,20 @@ describe("Корректная работа StringComponent", () => {
   it("Корректная работа анимации", () => {
     const inputString = "12345";
     const countSteps = 6;
-    const reversedString = inputString.split("").reverse().join("");
 
     cy.get('input').type(inputString);
     cy.contains('button', 'Развернуть').as("button_start_animation");
     cy.get("@button_start_animation").click();
     cy.get("@button_start_animation").get(loader).should('exist');
 
-    for(let i = 0; i <= countSteps; i++) {
-      cy.get()
+    for (let i = 0; i < countSteps; i++) {
+      cy.get(circle).each((circle, index) => {
+
+        cy.wrap(circle).find(element).should("have.text", result(i)[index].value);
+        cy.wrap(circle).find(element).should("have.css", "border-color", result(i)[index].color);
+      });
+      cy.wait(500);
     }
+    cy.get("@button_start_animation").get(loader).should('not.exist');
   });
 })
-
-// export const LOADER_SELECTOR = '[data-cy="loader"]';
-// export const CIRCLE_ELEMENT_SELECTOR = '[data-cy="circle_element"]';
-// export const CIRCLE_LETTER_SELECTOR = '[data-cy="letter"]';
-// export const CIRCLE_BORDER_SELECTOR = '[data-cy="border"]';
-// export const CIRCLE_INDEX_SELECTOR = '[data-cy="index"]';
-// export const CIRCLE_HEAD_SELECTOR = '[data-cy="head"]';
-// export const CIRCLE_TAIL_SELECTOR = '[data-cy="tail"]';
-
-// export const BORDER_DEFAULT = 'rgb(0, 50, 255)';
-// export const BORDER_CHANGING = 'rgb(210, 82, 225)';
-// export const BORDER_MODIFIED = 'rgb(127, 224, 81)';

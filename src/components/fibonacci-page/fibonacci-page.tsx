@@ -6,7 +6,7 @@ import { Input } from "../ui/input/input";
 import { Circle } from "../ui/circle/circle";
 
 export const FibonacciPage: React.FC = () => {
-  const [inputValue, setInputValue] = useState<number>(1);
+  const [inputValue, setInputValue] = useState<number>();
   const [loader, setLoader] = useState<boolean>(false);
   const [numbers, setNumbers] = useState<number[]>([]);
   const [disabledButton, setDisablesButton] = useState<boolean>(true);
@@ -66,7 +66,7 @@ export const FibonacciPage: React.FC = () => {
         {numbers.map((num, index) => (
           <div className={styles.number} key={index}>
             <Circle letter={num.toString()} />
-            <p className={styles.index}>{index}</p>
+            <p className={styles.index} data-cy="index">{index}</p>
           </div>
         ))}
       </div>
