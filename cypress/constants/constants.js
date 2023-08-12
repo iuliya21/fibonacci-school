@@ -7,4 +7,5 @@ export const head = '[data-cy="head"]';
 export const tail = '[data-cy="tail"]';
 export const letter = '[data-cy="letter"]'; 
 export const circle = '[data-cy="circle"]'; 
-export const index_element = '[data-cy="index"]'; 
+export const index_element = '[data-cy="index"]';
+export const add_to_head = "Добавить в head"; 

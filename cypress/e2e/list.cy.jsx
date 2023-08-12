@@ -1,4 +1,4 @@
-import { loader, circle, element, color_changing, color_modified, color_default, letter, head, tail, index_element } from "../constants/constants";
+import { loader, circle, element, color_changing, color_modified, color_default, letter, head, tail, add_to_head } from "../constants/constants";
 
 describe("Корректная работа компонента ListPage", () => {
   beforeEach(function () {
@@ -11,7 +11,7 @@ describe("Корректная работа компонента ListPage", () =
 
   it("Кнопка добавления в head при пустом инпуте 'Введите значение' неактивна", () => {
     cy.get("input").eq(0).should("be.empty");
-    cy.contains("button", "Добавить в head").should("be.disabled");
+    cy.contains("button", add_to_head).should("be.disabled");
     cy.contains("button", "Добавить по индексу").should("be.disabled");
     cy.contains("button", "Удалить по индексу").should("be.disabled");
   });
@@ -19,7 +19,7 @@ describe("Корректная работа компонента ListPage", () =
   it("Кнопка добавления по индексу при пустом инпуте 'Введите индекс'", () => {
     cy.get("input").eq(0).type("44");
     cy.get("input").eq(1).should("be.empty");
-    cy.contains("button", "Добавить в head").should("not.be.disabled");
+    cy.contains("button", add_to_head).should("not.be.disabled");
     cy.contains("button", "Добавить в tail").should("not.be.disabled");
     cy.contains("button", "Добавить по индексу").should("be.disabled");
     cy.contains("button", "Удалить по индексу").should("be.disabled");
@@ -42,7 +42,7 @@ describe("Корректная работа компонента ListPage", () =
 
   it("Корректное добавление элемента в head", () => {
     cy.get("input").eq(0).type("44");
-    cy.contains("button", "Добавить в head").as("button_add_head");
+    cy.contains("button", add_to_head).as("button_add_head");
     cy.get("@button_add_head").click();
     cy.get("@button_add_head").get(loader).should("exist");
     cy.get(circle).first().find(head).find(element).should("have.css", "border-color", color_changing);

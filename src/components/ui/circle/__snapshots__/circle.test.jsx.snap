@@ -4,22 +4,28 @@ exports[`Тестирование компонента Circle Отрисовка
 <DocumentFragment>
   <div
     class="content "
+    data-cy="circle"
   >
     <div
       class="text text_type_input text_color_input mb-4 absolute head element"
+      data-cy="head"
     />
     <div
       class="circle   default"
+      data-cy="border"
     >
       <p
         class="text text_type_circle text_color_input letter"
+        data-cy="letter"
       />
     </div>
     <p
       class="text text_type_input text_color_input mt-4 absolute index"
+      data-cy="index"
     />
     <div
       class="text text_type_input text_color_input mt-4 absolute tail30 element"
+      data-cy="tail"
     />
   </div>
 </DocumentFragment>
@@ -29,22 +35,28 @@ exports[`Тестирование компонента Circle Отрисовка
 <DocumentFragment>
   <div
     class="content "
+    data-cy="circle"
   >
     <div
       class="text text_type_input text_color_input mb-4 absolute head element"
+      data-cy="head"
     />
     <div
       class="circle   default"
+      data-cy="border"
     >
       <p
         class="text text_type_circle text_color_input letter"
+        data-cy="letter"
       />
     </div>
     <p
       class="text text_type_input text_color_input mt-4 absolute index"
+      data-cy="index"
     />
     <div
       class="text text_type_input text_color_input mt-4 absolute tail30 string"
+      data-cy="tail"
     >
       tail
     </div>
@@ -56,24 +68,30 @@ exports[`Тестирование компонента Circle Отрисовка
 <DocumentFragment>
   <div
     class="content "
+    data-cy="circle"
   >
     <div
       class="text text_type_input text_color_input mb-4 absolute head element"
+      data-cy="head"
     />
     <div
       class="circle   default"
+      data-cy="border"
     >
       <p
         class="text text_type_circle text_color_input letter"
+        data-cy="letter"
       />
     </div>
     <p
       class="text text_type_input text_color_input mt-4 absolute index"
+      data-cy="index"
     >
       1
     </p>
     <div
       class="text text_type_input text_color_input mt-4 absolute tail60 element"
+      data-cy="tail"
     />
   </div>
 </DocumentFragment>
@@ -83,9 +101,11 @@ exports[`Тестирование компонента Circle Отрисовка
 <DocumentFragment>
   <div
     class="content "
+    data-cy="circle"
   >
     <div
       class="text text_type_input text_color_input mb-4 absolute head element"
+      data-cy="head"
     >
       <div>
         React Element
@@ -93,16 +113,20 @@ exports[`Тестирование компонента Circle Отрисовка
     </div>
     <div
       class="circle   default"
+      data-cy="border"
     >
       <p
         class="text text_type_circle text_color_input letter"
+        data-cy="letter"
       />
     </div>
     <p
       class="text text_type_input text_color_input mt-4 absolute index"
+      data-cy="index"
     />
     <div
       class="text text_type_input text_color_input mt-4 absolute tail30 element"
+      data-cy="tail"
     />
   </div>
 </DocumentFragment>
@@ -112,22 +136,28 @@ exports[`Тестирование компонента Circle Отрисовка
 <DocumentFragment>
   <div
     class="content "
+    data-cy="circle"
   >
     <div
       class="text text_type_input text_color_input mb-4 absolute head element"
+      data-cy="head"
     />
     <div
       class="circle   default"
+      data-cy="border"
     >
       <p
         class="text text_type_circle text_color_input letter"
+        data-cy="letter"
       />
     </div>
     <p
       class="text text_type_input text_color_input mt-4 absolute index"
+      data-cy="index"
     />
     <div
       class="text text_type_input text_color_input mt-4 absolute tail30 element"
+      data-cy="tail"
     >
       <div>
         React Element
@@ -141,24 +171,30 @@ exports[`Тестирование компонента Circle Отрисовка
 <DocumentFragment>
   <div
     class="content "
+    data-cy="circle"
   >
     <div
       class="text text_type_input text_color_input mb-4 absolute head string"
+      data-cy="head"
     >
       head
     </div>
     <div
       class="circle   default"
+      data-cy="border"
     >
       <p
         class="text text_type_circle text_color_input letter"
+        data-cy="letter"
       />
     </div>
     <p
       class="text text_type_input text_color_input mt-4 absolute index"
+      data-cy="index"
     />
     <div
       class="text text_type_input text_color_input mt-4 absolute tail30 element"
+      data-cy="tail"
     />
   </div>
 </DocumentFragment>
@@ -168,22 +204,28 @@ exports[`Тестирование компонента Circle Отрисовка
 <DocumentFragment>
   <div
     class="content "
+    data-cy="circle"
   >
     <div
       class="text text_type_input text_color_input mb-4 absolute head element"
+      data-cy="head"
     />
     <div
       class="circle  small default"
+      data-cy="border"
     >
       <p
         class="text text_type_circle text_color_input letter"
+        data-cy="letter"
       />
     </div>
     <p
       class="text text_type_input text_color_input mt-4 absolute index"
+      data-cy="index"
     />
     <div
       class="text text_type_input text_color_input mt-4 absolute tail30 element"
+      data-cy="tail"
     />
   </div>
 </DocumentFragment>
@@ -193,24 +235,30 @@ exports[`Тестирование компонента Circle Отрисовка
 <DocumentFragment>
   <div
     class="content "
+    data-cy="circle"
   >
     <div
       class="text text_type_input text_color_input mb-4 absolute head element"
+      data-cy="head"
     />
     <div
       class="circle   default"
+      data-cy="border"
     >
       <p
         class="text text_type_circle text_color_input letter"
+        data-cy="letter"
       >
         Символ
       </p>
     </div>
     <p
       class="text text_type_input text_color_input mt-4 absolute index"
+      data-cy="index"
     />
     <div
       class="text text_type_input text_color_input mt-4 absolute tail30 element"
+      data-cy="tail"
     />
   </div>
 </DocumentFragment>
@@ -220,22 +268,28 @@ exports[`Тестирование компонента Circle Отрисовка
 <DocumentFragment>
   <div
     class="content "
+    data-cy="circle"
   >
     <div
       class="text text_type_input text_color_input mb-4 absolute head element"
+      data-cy="head"
     />
     <div
       class="circle   changing"
+      data-cy="border"
     >
       <p
         class="text text_type_circle text_color_input letter"
+        data-cy="letter"
       />
     </div>
     <p
       class="text text_type_input text_color_input mt-4 absolute index"
+      data-cy="index"
     />
     <div
       class="text text_type_input text_color_input mt-4 absolute tail30 element"
+      data-cy="tail"
     />
   </div>
 </DocumentFragment>
@@ -245,22 +299,28 @@ exports[`Тестирование компонента Circle Отрисовка
 <DocumentFragment>
   <div
     class="content "
+    data-cy="circle"
   >
     <div
       class="text text_type_input text_color_input mb-4 absolute head element"
+      data-cy="head"
     />
     <div
       class="circle   default"
+      data-cy="border"
     >
       <p
         class="text text_type_circle text_color_input letter"
+        data-cy="letter"
       />
     </div>
     <p
       class="text text_type_input text_color_input mt-4 absolute index"
+      data-cy="index"
     />
     <div
       class="text text_type_input text_color_input mt-4 absolute tail30 element"
+      data-cy="tail"
     />
   </div>
 </DocumentFragment>
@@ -270,22 +330,28 @@ exports[`Тестирование компонента Circle Отрисовка
 <DocumentFragment>
   <div
     class="content "
+    data-cy="circle"
   >
     <div
       class="text text_type_input text_color_input mb-4 absolute head element"
+      data-cy="head"
     />
     <div
       class="circle   modified"
+      data-cy="border"
     >
       <p
         class="text text_type_circle text_color_input letter"
+        data-cy="letter"
       />
     </div>
     <p
       class="text text_type_input text_color_input mt-4 absolute index"
+      data-cy="index"
     />
     <div
       class="text text_type_input text_color_input mt-4 absolute tail30 element"
+      data-cy="tail"
     />
   </div>
 </DocumentFragment>
