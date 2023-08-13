@@ -6,6 +6,7 @@ import { Button } from "../ui/button/button";
 import { Direction } from "../../types/direction";
 import { Column } from "../ui/column/column";
 import { ElementStates } from "../../types/element-states";
+import { sortingChoice, sortingBubble } from "../../utils/sorting-page";
 
 type NumberInfo = {
   num: number;
@@ -14,6 +15,7 @@ type NumberInfo = {
 };
 
 export const SortingPage: React.FC = () => {
+
   const [selectedOption, setSelectedOption] = useState("Выбор");
   
   const [loaderDescending, setLoaderDescending] = useState<boolean>(false);

@@ -20,16 +20,18 @@ export const StringComponent: React.FC = () => {
 
   useEffect(() => {
     setDisablesButton(inputValue.trim().length === 0);
-  }, [inputValue])
+  }, [inputValue]);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
   };
 
-  const handleButtonClick = () => {
-    let wordInput = inputValue.split("").map((char) => ({ char, sorting: false, sorted: false }));
-    setWord(wordInput);
+  const handleButtonClick = async () => {
     setLoader(true);
+    let wordInput = inputValue
+      .split("")
+      .map((char) => ({ char, sorting: false, sorted: false }));
+    setWord(wordInput);
     let currentIndex = 0;
     const interval = setInterval(() => {
       if (currentIndex < wordInput.length / 2) {
@@ -37,8 +39,11 @@ export const StringComponent: React.FC = () => {
           setWord((prevWord) => {
             const newWord = [...prevWord];
             const lastIndex = newWord.length - 1 - currentIndex;
-            newWord[currentIndex] = { ...prevWord[currentIndex], sorting: true };
-            newWord[lastIndex] = { ...prevWord[lastIndex], sorting: true }
+            newWord[currentIndex] = {
+              ...prevWord[currentIndex],
+              sorting: true,
+            };
+            newWord[lastIndex] = { ...prevWord[lastIndex], sorting: true };
             return newWord;
           });
         }, 0);
@@ -46,18 +51,26 @@ export const StringComponent: React.FC = () => {
           setWord((prevWord) => {
             const newWord = [...prevWord];
             const lastIndex = newWord.length - 1 - currentIndex;
-            newWord[currentIndex] = { ...prevWord[lastIndex], sorting: false, sorted: true };
-            newWord[lastIndex] = { ...prevWord[currentIndex], sorting: false, sorted: true }
+            newWord[currentIndex] = {
+              ...prevWord[lastIndex],
+              sorting: false,
+              sorted: true,
+            };
+            newWord[lastIndex] = {
+              ...prevWord[currentIndex],
+              sorting: false,
+              sorted: true,
+            };
             return newWord;
           });
           currentIndex++;
-        }, 500)
+        }, 500);
       } else {
         clearInterval(interval);
         setLoader(false);
       }
     }, 1000);
-  }
+  };
 
   return (
     <SolutionLayout title="Строка">
@@ -71,16 +84,28 @@ export const StringComponent: React.FC = () => {
           />
         </div>
         <Button
+          data-testid="button"
           text="Развернуть"
           onClick={handleButtonClick}
-          style={{ width: 133 }}
+          
           isLoader={loader}
           disabled={disabledButton}
         />
       </div>
-      <div className={styles.containerWords}>
+      <div data-testid="state" className={styles.containerWords}>
         {word.map(({ char, sorting, sorted }, index) => (
-          <Circle key={index} letter={char} state={sorting ? ElementStates.Changing : sorted ? ElementStates.Modified : ElementStates.Default} />
+          <Circle
+            data-testid="circle"
+            key={index}
+            letter={char}
+            state={
+              sorting
+                ? ElementStates.Changing
+                : sorted
+                ? ElementStates.Modified
+                : ElementStates.Default
+            }
+          />
         ))}
       </div>
     </SolutionLayout>
