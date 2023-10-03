@@ -18,5 +18,7 @@
   
   ![Typescript](https://img.shields.io/badge/Typescript-7B68EE.svg?style=for-the-badge&logo=typescript&logoColor=white)
   ![React](https://img.shields.io/badge/React-7B68EE.svg?style=for-the-badge&logo=react&logoColor=white)
+  ![Jest](https://img.shields.io/badge/Jest-7B68EE.svg?style=for-the-badge&logo=jest&logoColor=white)
+  ![Cypress](https://img.shields.io/badge/Cypress-7B68EE.svg?style=for-the-badge&logo=cypress&logoColor=white)
   
 </div>
