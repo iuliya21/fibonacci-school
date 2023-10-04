@@ -11,27 +11,27 @@ import styles from "./app.module.css";
 function App() {
   return (
     <div className={styles.app}>
-      <BrowserRouter >
+      <BrowserRouter basename="/fibonacci-school">
         <Switch>
-          <Route path="/fibonacci-school" exact>
+          <Route path="/" exact>
             <MainPage />
           </Route>
-          <Route path="/fibonacci-school/recursion">
+          <Route path="/recursion">
             <StringComponent />
           </Route>
-          <Route path="/fibonacci-school/fibonacci">
+          <Route path="/fibonacci">
             <FibonacciPage />
           </Route>
-          <Route path="/fibonacci-school/sorting">
+          <Route path="/sorting">
             <SortingPage />
           </Route>
-          <Route path="/fibonacci-school/stack">
+          <Route path="/stack">
             <StackPage />
           </Route>
-          <Route path="/fibonacci-school/queue">
+          <Route path="/queue">
             <QueuePage />
           </Route>
-          <Route path="/fibonacci-school/list">
+          <Route path="/list">
             <ListPage />
           </Route>
         </Switch>

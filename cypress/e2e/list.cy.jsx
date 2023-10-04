@@ -2,7 +2,7 @@ import { loader, circle, element, color_changing, color_modified, color_default,
 
 describe("Корректная работа компонента ListPage", () => {
   beforeEach(function () {
-    cy.visit("/fibonacci-school/list");
+    cy.visit("/list");
   });
 
   it("Страница с компонентом ListPage загружается корректно", () => {

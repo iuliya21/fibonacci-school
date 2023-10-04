@@ -18,7 +18,7 @@ const result = (step) => {
 
 describe("Корректная работа FibonacciPage", () => {
   beforeEach(() => {
-    cy.visit('/fibonacci-school/fibonacci');
+    cy.visit('/fibonacci');
   });
 
   it("Открыта страница с компонентом FibonacciPage", () => {

@@ -2,7 +2,7 @@ import { loader, color_default, color_changing, element, head, tail, circle} fro
 
 describe("Корректная работа компонента QueuePage", () => {
   beforeEach(() => {
-    cy.visit("/fibonacci-school/queue");
+    cy.visit("/queue");
   });
 
   it("Страница с компонентом QueuePage загружается корректно", () => {
