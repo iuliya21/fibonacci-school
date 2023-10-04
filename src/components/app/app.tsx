@@ -13,25 +13,25 @@ function App() {
     <div className={styles.app}>
       <BrowserRouter >
         <Switch>
-          <Route path="/" exact>
+          <Route path="/fibonacci-school" exact>
             <MainPage />
           </Route>
-          <Route path="/recursion">
+          <Route path="/fibonacci-school/recursion">
             <StringComponent />
           </Route>
-          <Route path="/fibonacci">
+          <Route path="/fibonacci-school/fibonacci">
             <FibonacciPage />
           </Route>
-          <Route path="/sorting">
+          <Route path="/fibonacci-school/sorting">
             <SortingPage />
           </Route>
-          <Route path="/stack">
+          <Route path="/fibonacci-school/stack">
             <StackPage />
           </Route>
-          <Route path="/queue">
+          <Route path="/fibonacci-school/queue">
             <QueuePage />
           </Route>
-          <Route path="/list">
+          <Route path="/fibonacci-school/list">
             <ListPage />
           </Route>
         </Switch>

@@ -56,7 +56,7 @@ const result = (step) => {
 
 describe("Корректная работа StringComponent", () => {
   beforeEach(() => {
-    cy.visit('/recursion');
+    cy.visit('/fibonacci-school/recursion');
   });
 
   it("Открыта страница с компонентом StringComponent", () => {

@@ -2,7 +2,7 @@ import { loader, circle, element, color_default, color_changing, head, letter, i
 
 describe("Корректная работа компонента StackPage", () => {
   beforeEach(() => {
-    cy.visit('/stack');
+    cy.visit('/fibonacci-school/stack');
   });
 
   it("Открыта страница с компонентом StackPage", () => {
