@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/fibonacci-school/static/css/main.66b1d19c.css",
-    "main.js": "/fibonacci-school/static/js/main.4cc215af.js",
+    "main.js": "/fibonacci-school/static/js/main.cad27b09.js",
     "static/js/787.0d1937ff.chunk.js": "/fibonacci-school/static/js/787.0d1937ff.chunk.js",
     "static/media/bg.jpg": "/fibonacci-school/static/media/bg.971318c52485d1963a30.jpg",
     "static/media/arr-hover.svg": "/fibonacci-school/static/media/arr-hover.b8bf27c9f429cdb6bf49.svg",
@@ -19,11 +19,11 @@
     "index.html": "/fibonacci-school/index.html",
     "static/media/loader.svg": "/fibonacci-school/static/media/loader.3560c7ba1c44b9900cfc03ff6ddbe067.svg",
     "main.66b1d19c.css.map": "/fibonacci-school/static/css/main.66b1d19c.css.map",
-    "main.4cc215af.js.map": "/fibonacci-school/static/js/main.4cc215af.js.map",
+    "main.cad27b09.js.map": "/fibonacci-school/static/js/main.cad27b09.js.map",
     "787.0d1937ff.chunk.js.map": "/fibonacci-school/static/js/787.0d1937ff.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.66b1d19c.css",
-    "static/js/main.4cc215af.js"
+    "static/js/main.cad27b09.js"
   ]
 }
