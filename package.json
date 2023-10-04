@@ -2,12 +2,14 @@
   "name": "algorithms-project",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://iuliya21.github.io/fibonacci-school/",
   "dependencies": {
     "@testing-library/react": "^12.1.2",
     "@testing-library/user-event": "^13.5.0",
     "@types/jest": "^27.4.0",
     "@types/node": "^16.11.22",
     "@types/react-dom": "^17.0.11",
+    "gh-pages": "^6.0.0",
     "nanoid": "^3.2.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -22,7 +24,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "cypress:open": "cypress open",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
